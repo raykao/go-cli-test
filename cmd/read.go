@@ -29,15 +29,16 @@ var readCmd = &cobra.Command{
 		foo, _ := cmd.PersistentFlags().GetString("foo")
 		fmt.Println(foo)
 
-		toggle, _ := cmd.Flags().GetBool("toggle")
-		fmt.Println(toggle)
+		toggleFlag, _ := cmd.Flags().GetBool("toggle")
+		fmt.Println(toggleFlag)
+
+		toggleEnv := viper.Get("toggle")
+		fmt.Println(toggleEnv)
 	},
 }
 
 func init() {
-	fmt.Printf("running from read.go\n\n")
 	rootCmd.AddCommand(readCmd)
-
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
@@ -47,4 +48,10 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	readCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+
+	// Bind all subcommand local flags to Viper
+	viper.BindPFlags(readCmd.Flags())
+
+	// Bind all subcommand persistent flags to Viper
+	viper.BindPFlags(readCmd.PersistentFlags())
 }

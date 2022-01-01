@@ -73,6 +73,8 @@ func initConfig() {
 		viper.SetConfigName(defaultCfgFileName)
 	}
 
+	// Set default prefix for Environment variables e.g. RK -> "RK_VARIABLE_NAME"
+	viper.SetEnvPrefix("rk")
 	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.
