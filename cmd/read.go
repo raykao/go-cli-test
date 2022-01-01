@@ -24,6 +24,13 @@ var readCmd = &cobra.Command{
 		for i, value := range settings {
 			fmt.Printf("%v: %v\n", i, value)
 		}
+
+		// viper.BindPFlag("config", cmd.PersistentFlags().Lookup("config"))
+		foo, _ := cmd.PersistentFlags().GetString("foo")
+		fmt.Println(foo)
+
+		toggle, _ := cmd.Flags().GetBool("toggle")
+		fmt.Println(toggle)
 	},
 }
 
@@ -35,9 +42,9 @@ func init() {
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// readCmd.PersistentFlags().String("foo", "", "A help for foo")
+	readCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// readCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	readCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
